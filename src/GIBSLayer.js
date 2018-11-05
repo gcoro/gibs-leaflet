@@ -1,8 +1,8 @@
-﻿export const decorate = (L:any)=> {
-    var s2 = function(num:any) { return num < 10 ? '0' + num : num; },
+﻿export const decorate = (L) => {
+    var s2 = function (num) { return num < 10 ? '0' + num : num; },
         GIBS_ATTRIBUTION = '<a href="https://earthdata.nasa.gov/gibs">NASA EOSDIS GIBS</a>';
 
-    var getGibsURL = function(info:any, date:any, x:any, y:any, z:any) {
+    var getGibsURL = function (info, date, x, y, z) {
         if (info.date && !date) {
             return L.Util.emptyImageUrl;
         }
@@ -19,7 +19,7 @@
     };
 
     var GIBSLayerImage = L.TileLayer.extend({
-        initialize: function(gibsID:any, options:any) {
+        initialize: function (gibsID, options) {
             this._layerInfo = L.GIBS_LAYERS[gibsID];
             options = options || {};
             options.maxZoom = this._layerInfo.zoom;
@@ -31,11 +31,11 @@
             L.TileLayer.prototype.initialize.call(this, this._layerInfo.template, options);
         },
 
-        getTileUrl: function(tilePoint:any){
+        getTileUrl: function (tilePoint) {
             return getGibsURL(this._layerInfo, this._date, tilePoint.x, tilePoint.y, tilePoint.z);
         },
 
-        setDate: function(newDate:any) {
+        setDate: function (newDate) {
             if (this._layerInfo.date) {
                 this._date = newDate;
                 this._map && this.redraw();
@@ -43,7 +43,7 @@
             return this;
         },
 
-        isTemporal: function() {
+        isTemporal: function () {
             return this._layerInfo.date;
         }
 
@@ -59,7 +59,7 @@
     }
 
     var GIBSLayerCanvas = GIBSGridLayer.extend({
-        initialize: function(layerName:any, options:any) {
+        initialize: function (layerName, options) {
 
             L.Util.setOptions(this, {
                 async: true,
@@ -74,7 +74,7 @@
                 throw "Unknown GIBS layer name";
             }
 
-            L.Util.setOptions(this, {maxZoom: this._layerInfo.zoom});
+            L.Util.setOptions(this, { maxZoom: this._layerInfo.zoom });
 
             this._maskInfo = null;
             if (layerName.indexOf('Terra') !== -1) {
@@ -84,7 +84,7 @@
             }
         },
 
-        setDate: function(newDate:any) {
+        setDate: function (newDate) {
             if (this._layerInfo.date) {
                 this._date = newDate;
                 this._map && this.redraw();
@@ -92,13 +92,13 @@
             return this;
         },
 
-        setTransparent: function(isTransparent:any) {
+        setTransparent: function (isTransparent) {
             this.options.transparent = isTransparent;
             this._map && this.redraw();
             return this;
         },
 
-        _loadImage: function(url:any, onLoaded:any, onError:any) {
+        _loadImage: function (url, onLoaded, onError) {
             var img = new Image();
             img.onload = onLoaded.bind(null, img);
             img.onerror = onError;
@@ -107,7 +107,7 @@
         },
 
         // Common code utilised by both drawTile and createTile
-        _tryToProcess: function(canvas:any, c_width:any, c_height:any, mainImg:any, maskImg:any, hasMask:any) {
+        _tryToProcess: function (canvas, c_width, c_height, mainImg, maskImg, hasMask) {
             var mainCtx = canvas.getContext('2d');
             mainCtx.drawImage(mainImg, 0, 0);
 
@@ -119,67 +119,24 @@
                 maskCanvas.height = c_height;
 
                 var maskCtx = maskCanvas.getContext('2d');
-                (<any>maskCtx).drawImage(maskImg, 0, 0);
+                (maskCtx).drawImage(maskImg, 0, 0);
 
-                var maskPixels = (<any>maskCtx).getImageData(0, 0, c_width, c_height).data,
+                var maskPixels = (maskCtx).getImageData(0, 0, c_width, c_height).data,
                     pixels = mainData.data;
 
                 for (var p = 0; p < maskPixels.length; p += 4) {
-                    if (maskPixels[p+3]) pixels[p+3] = 0;
+                    if (maskPixels[p + 3]) pixels[p + 3] = 0;
                 }
 
                 mainCtx.putImageData(mainData, 0, 0);
             }
         },
-
-        // drawTile is only used by Leaflet 0.7x
-        // It is replaced with createTile in Leaflet 1.x
-        drawTile: function(canvas:any, tilePoint:any, zoom:any) {
-            var hasMask = this._maskInfo && this.options.transparent,
-                mainImg:any,
-                maskImg:any,
-                _this = this;
-
-            if (!this._date) {
-                return;
-            }
-
-
-            var tryToProcess = function() {
-                if (mainImg && (maskImg || !hasMask)) {
-                    if (mainImg.width !== 256 || (hasMask && maskImg.width !== 256)) {
-                        _this.tileDrawn(canvas);
-                        return;
-                    }
-
-                    _this._tryToProcess(canvas, 256, 256, mainImg, maskImg, hasMask);
-                    _this.tileDrawn(canvas);
-                }
-            }
-
-            this._adjustTilePoint(tilePoint);
-
-            var mainSrc = getGibsURL(this._layerInfo, this._date, tilePoint.x, tilePoint.y, zoom);
-
-            this._loadImage(mainSrc, function(img:any) {
-                mainImg = img;
-                tryToProcess();
-            }, this.tileDrawn.bind(this, canvas));
-
-            if (hasMask) {
-                var maskSrc = getGibsURL(this._maskInfo, this._date, tilePoint.x, tilePoint.y, zoom);
-                this._loadImage(maskSrc, function(img:any) {
-                    maskImg = img;
-                    tryToProcess();
-                }, this.tileDrawn.bind(this, canvas));
-            }
-        },
-
+        
         // New in Leaflet 1.0
-        createTile: function(coords:any){
+        createTile: function (coords) {
             var hasMask = this._maskInfo && this.options.transparent,
-                mainImg:any,
-                maskImg:any,
+                mainImg,
+                maskImg,
                 _this = this;
 
             var tile = L.DomUtil.create('canvas', 'leaflet-tile');
@@ -192,7 +149,7 @@
                 return tile;
             }
 
-            var tryToProcess = function(canvas:any) {
+            var tryToProcess = function (canvas) {
                 if (mainImg && (maskImg || !hasMask)) {
                     if (mainImg.width !== canvas.width || (hasMask && maskImg.width !== canvas.width)) return;
                     _this._tryToProcess(canvas, canvas.width, canvas.height, mainImg, maskImg, hasMask);
@@ -201,14 +158,14 @@
 
             var mainSrc = getGibsURL(this._layerInfo, this._date, coords.x, coords.y, coords.z);
 
-            this._loadImage(mainSrc, function(img:any) {
+            this._loadImage(mainSrc, function (img) {
                 mainImg = img;
                 tryToProcess(tile);
             });
 
             if (hasMask) {
                 var maskSrc = getGibsURL(this._maskInfo, this._date, coords.x, coords.y, coords.z);
-                this._loadImage(maskSrc, function(img:any) {
+                this._loadImage(maskSrc, function (img) {
                     maskImg = img;
                     tryToProcess(tile);
                 });
@@ -217,12 +174,12 @@
             return tile;
         },
 
-        isTemporal: function() {
+        isTemporal: function () {
             return this._layerInfo.date;
         }
     })
 
-    L.GIBSLayer = function(gibsID:any, options:any) {
+    L.GIBSLayer = function (gibsID, options) {
         var layerInfo = L.GIBS_LAYERS[gibsID];
 
         if (!layerInfo) {
@@ -231,7 +188,7 @@
 
         options = options || {};
         var needMask = layerInfo.date && 'transparent' in options && /jpg$/.test(layerInfo.template) &&
-                (gibsID.indexOf('Terra') !== -1 || gibsID.indexOf('Aqua') !== -1);
+            (gibsID.indexOf('Terra') !== -1 || gibsID.indexOf('Aqua') !== -1);
 
         return needMask ? new GIBSLayerCanvas(gibsID, options) : new GIBSLayerImage(gibsID, options);
     }
