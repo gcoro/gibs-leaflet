@@ -4,7 +4,7 @@
   "description": "implementation of gibs map in a NPM compatible way",
   "main": "index.js",
   "directories": {
-    "src": "src"
+    "lib": "lib"
   },
   "dependencies": {
     "axios": "^0.18.0",
