@@ -7,12 +7,19 @@
     "lib": "lib"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "leaflet": "^1.3.4"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "esm": "^3.0.84",
+    "jasmine": "^3.3.0",
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gcoro/gibs-map.git"
+  },
+  "scripts": {
+    "test": "node -r esm node_modules/jasmine/bin/jasmine.js"
   },
   "license": "MIT",
   "author": "Davide Trevisan, Giulia Corò",
