@@ -3,11 +3,13 @@
     "version": "1.0.0",
     "description": "JavaScript component that integrates NASA GIBS imagery with Leaflet",
     "main": "lib/index.js",
+    "dependencies": {
+        "moment": "^2.22.2"
+    },
     "devDependencies": {
         "axios": "^0.18.0",
         "esm": "^3.0.84",
-        "jasmine": "^3.3.0",
-        "moment": "^2.22.2"
+        "jasmine": "^3.3.0"
     },
     "repository": {
         "type": "git",
