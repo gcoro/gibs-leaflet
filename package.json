@@ -1,27 +1,25 @@
 {
-  "name": "gibs-map",
-  "version": "1.0.0",
-  "description": "implementation of gibs map in a NPM compatible way",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "devDependencies": {
-    "axios": "^0.18.0",
-    "esm": "^3.0.84",
-    "jasmine": "^3.3.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gcoro/gibs-map.git"
-  },
-  "scripts": {
-    "test": "node -r esm node_modules/jasmine/bin/jasmine.js"
-  },
-  "license": "MIT",
-  "author": "Davide Trevisan, Giulia Corò",
-  "bugs": {
-    "url": "https://github.com/gcoro/gibs-map/issues"
-  },
-  "homepage": "https://github.com/gcoro/gibs-map#readme"
+    "name": "gibs-map",
+    "version": "1.0.0",
+    "description": "implementation of gibs leaflet in a NPM compatible way",
+    "main": "lib/index.js",
+    "devDependencies": {
+        "axios": "^0.18.0",
+        "esm": "^3.0.84",
+        "jasmine": "^3.3.0",
+        "moment": "^2.22.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gcoro/gibs-map.git"
+    },
+    "scripts": {
+        "test": "node -r esm node_modules/jasmine/bin/jasmine.js"
+    },
+    "license": "MIT",
+    "author": "Davide Trevisan, Giulia Corò",
+    "bugs": {
+        "url": "https://github.com/gcoro/gibs-map/issues"
+    },
+    "homepage": "https://github.com/gcoro/gibs-map#readme"
 }
