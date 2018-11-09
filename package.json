@@ -6,9 +6,6 @@
   "directories": {
     "lib": "lib"
   },
-  "dependencies": {
-    "leaflet": "^1.3.4"
-  },
   "devDependencies": {
     "axios": "^0.18.0",
     "esm": "^3.0.84",
