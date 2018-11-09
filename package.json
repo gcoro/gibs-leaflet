@@ -1,7 +1,7 @@
 {
-    "name": "gibs-map",
+    "name": "gibs-leaflet",
     "version": "1.0.0",
-    "description": "implementation of gibs leaflet in a NPM compatible way",
+    "description": "JavaScript component that integrates NASA GIBS imagery with Leaflet",
     "main": "lib/index.js",
     "devDependencies": {
         "axios": "^0.18.0",
@@ -11,7 +11,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/gcoro/gibs-map.git"
+        "url": "git+https://github.com/gcoro/gibs-leaflet.git"
     },
     "scripts": {
         "test": "node -r esm node_modules/jasmine/bin/jasmine.js"
@@ -19,7 +19,7 @@
     "license": "MIT",
     "author": "Davide Trevisan, Giulia Corò",
     "bugs": {
-        "url": "https://github.com/gcoro/gibs-map/issues"
+        "url": "https://github.com/gcoro/gibs-leaflet/issues"
     },
-    "homepage": "https://github.com/gcoro/gibs-map#readme"
+    "homepage": "https://github.com/gcoro/gibs-leaflet#readme"
 }
