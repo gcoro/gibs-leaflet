@@ -20,23 +20,26 @@ const mapWithGIBSLayers = GIBSLeaflet.wrap(L);
 
 ### Adding layers
 
-After defining a base Leaflet layer for your map, you can add to it as many GIBS layers as you wish, as follows
+You can add to your Leaflet map as many GIBS layers as you wish, as follows
 
 ```
+// after you have defined a base layer, add it to the map
+mapWithGIBSLayers.addLayer(baseLayer);
+
 // define additional layers
 const layer1 = new L.GIBSLayer('GMI_Snow_Rate_Asc', {
     date: new Date('2018/11/15'),
 	  transparent: true
 });
 
-// create an object that contains all your layers
+// create an object that contains all your layers - the name you choose as the key for each layer will be the one visible on the switcher to select the corresponding layer
 const layers = {
-     Snow rate : layer1,
+     'Snow rate' : layer1,
     // more layers
 }
 
 // create a layer control and add it to the map
-L.control.layers(layers).addTo(this.mapWithGIBSLayers);
+L.control.layers(layers).addTo(mapWithGIBSLayers);
 
 ```
 
@@ -315,3 +318,6 @@ L.control.layers(layers).addTo(this.mapWithGIBSLayers);
    * VIIRS_SNPP_CorrectedReflectance_BandsM3-I3-M11   
    * MODIS_Terra_Data_No_Data  
    * MODIS_Aqua_Data_No_Data 
+
+### Notes
+Note that different layers could work at different zoom levels, so you may need to zoom in or zoom out your map to visualize all the layers.
