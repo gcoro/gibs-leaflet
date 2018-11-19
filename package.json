@@ -11,6 +11,15 @@
         "esm": "^3.0.84",
         "jasmine": "^3.3.0"
     },
+    "keywords": [
+        "gibs",
+        "leaflet",
+        "nasa",
+        "imagery",
+        "satellite",
+        "map",
+        "layers"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gcoro/gibs-leaflet.git"
