@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GIBS_LAYERS, GIBS_MASKS } from '../lib/support/support';
+import { GIBS_LAYERS, GIBS_MASKS } from '../lib/data';
 
 describe("gibs masks should work", () => {
     Object.keys(GIBS_MASKS).forEach(key => {

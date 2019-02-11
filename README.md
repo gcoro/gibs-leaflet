@@ -118,10 +118,6 @@ AMSR2_Cloud_Liquid_Water_Day
 AMSR2_Cloud_Liquid_Water_Night
 AMSR2_Columnar_Water_Vapor_Day
 AMSR2_Columnar_Water_Vapor_Night
-AMSR2_Sea_Ice_Brightness_Temp_6km_89H
-AMSR2_Sea_Ice_Brightness_Temp_6km_89V
-AMSR2_Sea_Ice_Concentration_12km
-AMSR2_Sea_Ice_Concentration_25km
 AMSR2_Snow_Water_Equivalent
 AMSR2_Surface_Precipitation_Rate_Day
 AMSR2_Surface_Precipitation_Rate_Night
@@ -815,7 +811,6 @@ VIIRS_SNPP_DayNightBand_ENCC
 </details>
 
 
-### Notes
 Note that different layers could work at different zoom levels, so you may need to zoom in or zoom out your map to visualize all the layers.
 
 
