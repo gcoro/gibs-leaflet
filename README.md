@@ -1,6 +1,8 @@
 # gibs-leaflet
 
-Javascript component to integrate NASA GIBS satellite imagery with Leaflet maps. Based on [aparshin/leaflet-GIBS](https://github.com/aparshin/leaflet-GIBS), and repacked to be used as a NPM module.
+Javascript component to integrate [NASA EOSDIS GIBS (Global Imagery Browse Services)](https://earthdata.nasa.gov/about/science-system-description/eosdis-components/global-imagery-browse-services-gibs) satellite imagery with [Leaflet](https://leafletjs.com/) maps. 
+Based on [aparshin/leaflet-GIBS](https://github.com/aparshin/leaflet-GIBS), and repacked to be used as a NPM module.
+Compatible with Leaflet versions > 1.x.x.
 
 ## Installation
 
@@ -20,25 +22,34 @@ const mapWithGIBSLayers = GIBSLeaflet.wrap(L);
 
 ### Adding layers
 
-You can add to your Leaflet map as many GIBS layers as you wish, as follows
+You can add to your Leaflet map as many GIBS layers as you wish, as follows:
 
+
+* after you have defined a base layer, add it to the map
 ```
-// after you have defined a base layer, add it to the map
 mapWithGIBSLayers.addLayer(baseLayer);
+```
 
-// define additional layers
+* define additional layers, one for each GIBS layer you want to be appliable to the map
+```
 const layer1 = new L.GIBSLayer('GMI_Snow_Rate_Asc', {
     date: new Date('2018/11/15'),
 	  transparent: true
 });
 
-// create an object that contains all your layers - the name you choose as the key for each layer will be the one visible on the switcher to select the corresponding layer
+// more layers
+```
+
+* create an object that contains all your layers - the name you choose as the key for each layer will be the one visible on the switcher to select the corresponding layer
+```
 const layers = {
      'Snow rate' : layer1,
     // more layers
 }
+```
 
-// create a layer control and add it to the map
+* create a layer control and add it to the map
+```
 L.control.layers(layers).addTo(mapWithGIBSLayers);
 
 ```
@@ -49,7 +60,8 @@ L.control.layers(layers).addTo(mapWithGIBSLayers);
   <summary>List of available layers</summary>
   <p>
 	  
- ``` Agricultural_Lands_Croplands_2000
+ ``` 
+Agricultural_Lands_Croplands_2000
 Agricultural_Lands_Pastures_2000
 AIRS_All_Sky_Outgoing_Longwave_Radiation_Daily_Day
 AIRS_All_Sky_Outgoing_Longwave_Radiation_Daily_Night
@@ -806,13 +818,36 @@ VIIRS_SNPP_CorrectedReflectance_BandsM3-I3-M11
 VIIRS_SNPP_CorrectedReflectance_TrueColor
 VIIRS_SNPP_DayNightBand_ENCC  
 ```
-
 </p>
 </details>
 
+Note that different layers could work at different zoom levels, so you may need to zoom in or zoom out your map to visualize all the layers. 
 
-Note that different layers could work at different zoom levels, so you may need to zoom in or zoom out your map to visualize all the layers.
+### Layers Metadata
 
+The metadata for available GIBS layers is defined in the file `data.js` as `L.GIBS_LAYERS`. Keys are layer's IDs, values are the following objects:
+  * `title` - layer's title
+  * `template` - template of layer tiles
+  * `zoom` - max zoom of the layer
+  * `date` (boolean) - is the layer multi-temporal
 
-### Data 
+### Available options 
+
+The following options can be set:
+
+|Option|Type|Description|
+|---|---|---|
+|`date`|`Date`|Date for multi-temporal products|
+|`transparent`|`Boolean`|Make no-data pixels of MODIS Multiband Imagery transparent|
+
+## Data 
+
 The layer data source used is [this xml](https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml) - _last update done on 4/02/2019_
+
+## Tests
+
+You can test which layers are functioning/broken running 
+
+```
+npm test
+```
