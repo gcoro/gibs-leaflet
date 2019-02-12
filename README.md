@@ -1,7 +1,11 @@
 # gibs-leaflet
 
 Javascript component to integrate [NASA EOSDIS GIBS (Global Imagery Browse Services)](https://earthdata.nasa.gov/about/science-system-description/eosdis-components/global-imagery-browse-services-gibs) satellite imagery with [Leaflet](https://leafletjs.com/) maps. 
+
+
 Based on [aparshin/leaflet-GIBS](https://github.com/aparshin/leaflet-GIBS), and repacked to be used as a NPM module.
+
+
 Compatible with Leaflet versions > 1.x.x.
 
 ## Installation
@@ -36,7 +40,6 @@ const layer1 = new L.GIBSLayer('GMI_Snow_Rate_Asc', {
     date: new Date('2018/11/15'),
 	  transparent: true
 });
-
 // more layers
 ```
 
@@ -57,7 +60,7 @@ L.control.layers(layers).addTo(mapWithGIBSLayers);
 ### Available layers
 
 <details>
-  <summary>List of available layers</summary>
+  <summary>** List of available layers **</summary>
   <p>
 	  
  ``` 
@@ -821,7 +824,6 @@ VIIRS_SNPP_DayNightBand_ENCC
 </p>
 </details>
 
-Note that different layers could work at different zoom levels, so you may need to zoom in or zoom out your map to visualize all the layers. 
 
 ### Layers Metadata
 
