@@ -7,7 +7,7 @@
         "moment": "^2.22.2"
     },
     "devDependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.19.0",
         "esm": "^3.0.84",
         "jasmine": "^3.3.0"
     },
